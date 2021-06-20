@@ -8,6 +8,9 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
+                def username = 'jenkins'
+                echo 'hello Mr. ${username}'
+                echo "I said, Hello Mr. ${username}"
                 sh 'mvn -B -DskipTests clean package' 
             }
         }
@@ -24,6 +27,8 @@ pipeline {
         }
         stage('Deliver') {
             steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                echo "env path: ${env.WORKSPACE}"
                 sh './jenkins/scripts/deliver.sh'
             }
         }
